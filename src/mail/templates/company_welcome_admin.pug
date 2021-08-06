@@ -1,0 +1,25 @@
+extends email-layout
+
+block content
+  .subject
+    h2 A new company just registered
+
+  .body
+    img(src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png", alt="welcome to chooselife")
+
+    p Hello Admin!,
+
+    p A new company
+      b  #{companyName}
+      |  just registered on the platform.
+
+    p complete the company onboarding by click the button below or copy the link below into your browser.
+
+    +button(loginLink, 'Login Link ->')
+
+    p
+      a(href=`${loginLink}`, target='_blank')= loginLink
+
+    p If you didn't request this email, please ignore it.
+    p Regards.
+    p Choose Life Team

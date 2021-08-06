@@ -1,0 +1,32 @@
+extends email-layout
+
+block content
+    .subject
+        h2 Contact Us Form Filled By : #{firstName} #{lastName}
+
+    .body
+        //- img(src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png", alt="welcome to chooselife")
+
+        p Hello Admin!,
+
+        p The contact-us was filled by
+            b  #{firstName} #{lastName}
+            |  on the platform.
+
+        p Here is the details of the contact:
+        | Name:
+        b
+            em  #{firstName} #{lastName},
+        |  Email:
+        b  #{email},
+        |  Company Name:
+        b  #{companyName},
+        |  the phone Number :
+        b  #{phone},
+        |  and the message :
+        b  #{message}.
+
+
+        p If you didn't request this email, please ignore it.
+        p Regards.
+        p Choose Life Team

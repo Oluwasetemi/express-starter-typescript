@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style>
+			/* -------------------------------------
+    GLOBAL RESETS
+------------------------------------- */
+			img {
+				border: none;
+				-ms-interpolation-mode: bicubic;
+				max-width: 100%;
+			}
+
+			body {
+				background-color: #303030;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+					Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				-webkit-font-smoothing: antialiased;
+				font-size: 14px;
+				line-height: 1.4;
+				margin: 0;
+				padding: 0;
+				-ms-text-size-adjust: 100%;
+				-webkit-text-size-adjust: 100%;
+			}
+
+			table {
+				border-collapse: collapse;
+				mso-table-lspace: 0pt;
+				mso-table-rspace: 0pt;
+				width: 100%;
+			}
+			table td {
+				font-family: sans-serif;
+				font-size: 14px;
+				vertical-align: top;
+			}
+
+			/* -------------------------------------
+    BODY & CONTAINER
+------------------------------------- */
+
+			/* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+			.container {
+				display: block;
+				margin: 0 auto !important;
+				/* makes it centered */
+				max-width: 580px;
+				padding: 10px;
+				width: 580px;
+			}
+
+			/* This should also be a block element, so that it will fill 100% of the .container */
+			.content {
+				box-sizing: border-box;
+				display: block;
+				margin: 0 auto;
+				max-width: 580px;
+				padding: 10px;
+			}
+
+			/* -------------------------------------
+    HEADER, FOOTER, MAIN, LOGO
+------------------------------------- */
+			.logo-container {
+				background: #fff;
+				border-bottom: 1px solid rgba(76, 92, 109, 0.22);
+			}
+
+			.logo {
+				padding: 0;
+			}
+
+			.logo img {
+				margin-left: 25px;
+				width: 100px;
+			}
+
+			.main {
+				background: #fff;
+				/* border-top: 2px solid transparent; */
+				width: 100%;
+			}
+
+			.wrapper {
+				box-sizing: border-box;
+				border-collapse: collapse;
+			}
+
+			.wrapper td {
+				padding: 0;
+				margin: 0;
+			}
+
+			.footer {
+				box-sizing: border-box;
+				clear: both;
+				padding: 20px;
+				text-align: center;
+				width: 100%;
+				height: 90px;
+			}
+			.footer td,
+			.footer p,
+			.footer span,
+			.footer a {
+				font-size: 12px;
+				text-align: center;
+				margin: 0;
+			}
+
+			/* -------------------------------------
+    TYPOGRAPHY
+------------------------------------- */
+			h1,
+			h2,
+			h3,
+			h4 {
+				color: #000000;
+				font-family: sans-serif;
+				font-weight: 400;
+				line-height: 1.4;
+				margin: 0;
+				margin-bottom: 30px;
+			}
+
+			h1 {
+				font-size: 35px;
+				font-weight: 300;
+				text-align: center;
+				text-transform: capitalize;
+			}
+
+			p,
+			ul,
+			ol {
+				font-family: sans-serif;
+				font-size: 14px;
+				font-weight: normal;
+				margin: 0;
+				margin-bottom: 15px;
+			}
+			p li,
+			ul li,
+			ol li {
+				list-style-position: inside;
+				margin-left: 5px;
+			}
+
+			a {
+				color: #151515;
+				text-decoration: underline;
+			}
+
+			/* -------------------------------------
+    BUTTONS
+------------------------------------- */
+			.btn table {
+				width: 100%;
+			}
+			.btn table td {
+				text-align: center;
+			}
+			.btn a {
+				background-color: #2ec4b6;
+				box-sizing: border-box;
+				color: #151515;
+				cursor: pointer;
+				display: inline-block;
+				font-size: 14px;
+				font-weight: bold;
+				margin: 0;
+				padding: 12px 25px;
+				text-decoration: none;
+				text-transform: capitalize;
+			}
+
+			.btn-primary a {
+				background-color: #2ec4b6;
+				border-color: #4a7e79;
+				color: #ffffff;
+			}
+
+			.btn td {
+				background: #2ec4b6;
+				border-radius: 8px;
+			}
+
+			/* -------------------------------------
+    OTHER STYLES THAT MIGHT BE USEFUL
+------------------------------------- */
+			.last {
+				margin-bottom: 0;
+			}
+
+			.first {
+				margin-top: 0;
+			}
+
+			.align-center {
+				text-align: center;
+			}
+
+			.align-right {
+				text-align: right;
+			}
+
+			.align-left {
+				text-align: left;
+			}
+
+			.clear {
+				clear: both;
+			}
+
+			.mt0 {
+				margin-top: 0;
+			}
+
+			.mb0 {
+				margin-bottom: 0;
+			}
+
+			.preheader {
+				color: transparent;
+				display: none;
+				height: 0;
+				max-height: 0;
+				max-width: 0;
+				opacity: 0;
+				overflow: hidden;
+				mso-hide: all;
+				visibility: hidden;
+				width: 0;
+			}
+
+			.powered-by a {
+				text-decoration: none;
+			}
+
+			hr {
+				border: 0;
+				border-bottom: 1px solid #303030;
+				margin: 20px 0;
+			}
+
+			/* -------------------------------------
+    RESPONSIVE AND MOBILE FRIENDLY STYLES
+------------------------------------- */
+			@media only screen and (max-width: 620px) {
+				table[class='body'] h1 {
+					font-size: 28px !important;
+					margin-bottom: 10px !important;
+				}
+				table[class='body'] p,
+				table[class='body'] ul,
+				table[class='body'] ol,
+				table[class='body'] td,
+				table[class='body'] span,
+				table[class='body'] a {
+					font-size: 16px !important;
+				}
+				table[class='body'] .wrapper,
+				table[class='body'] .article {
+					padding: 10px !important;
+				}
+				table[class='body'] .content {
+					padding: 0 !important;
+				}
+				table[class='body'] .container {
+					padding: 0 !important;
+					width: 100% !important;
+				}
+				table[class='body'] .main {
+					border-left-width: 0 !important;
+					border-radius: 0 !important;
+					border-right-width: 0 !important;
+				}
+				table[class='body'] .btn table {
+					width: 100% !important;
+				}
+				table[class='body'] .btn a {
+					width: 100% !important;
+				}
+				table[class='body'] .img-responsive {
+					height: auto !important;
+					max-width: 100% !important;
+					width: auto !important;
+				}
+			}
+
+			/* -------------------------------------
+    CHOOSELIFE SPECIFIC STYLES
+------------------------------------- */
+			.btn {
+				background: #2ec4b6;
+				box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
+				border-radius: 8px;
+				box-sizing: border-box;
+				width: 60%;
+				margin-bottom: 10px;
+			}
+
+			.subject {
+				margin: 40px auto;
+				padding: 0 40px 40px 40px;
+				border-bottom: 1px solid rgba(76, 92, 109, 0.22);
+			}
+
+			.subject h2 {
+				margin: 0;
+				font-weight: 700;
+			}
+
+			.body {
+				margin: 20px auto;
+				padding: 0 40px 20px 40px;
+			}
+
+			.body img {
+				max-width: 100%;
+			}
+
+			.footer {
+				background-color: #3cbdb2;
+				color: #fff;
+			}
+
+			.footer-content {
+				padding-top: 20px;
+			}
+
+			.footer-content p {
+				margin-bottom: 5px;
+			}
+
+			.social-media-icons img {
+				margin-bottom: 0;
+			}
+
+			/* -------------------------------------
+    PRESERVE THESE STYLES IN THE HEAD
+------------------------------------- */
+			@media all {
+				.ExternalClass {
+					width: 100%;
+				}
+
+				.ExternalClass,
+				.ExternalClass p,
+				.ExternalClass span,
+				.ExternalClass font,
+				.ExternalClass td,
+				.ExternalClass div {
+					line-height: 100%;
+				}
+
+				.apple-link a {
+					color: inherit !important;
+					font-family: inherit !important;
+					font-size: inherit !important;
+					font-weight: inherit !important;
+					line-height: inherit !important;
+					text-decoration: none !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<table class="body" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td></td>
+				<td class="container">
+					<div class="content">
+						<table class="logo-container">
+							<tr>
+								<td class="logo">
+									<img
+										src="https://res.cloudinary.com/drnqdd87d/image/upload/v1604938085/chooselife/chooselife.ico"
+										alt="chooselife logo"
+									/>
+								</td>
+							</tr>
+						</table>
+						<table class="main">
+							<tr>
+								<td class="wrapper">
+									<table border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td>
+												<div class="subject"><h2>You Requested A Password Reset</h2></div>
+												<div class="body">
+													<img
+														src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png"
+														alt="welcome to chooselife"
+													/>
+													<p>Hello setemi!,</p>
+													<p>
+														We heard you need your password reset. Click the link below and you'll
+														be redirected to a secure location from where you can set a new
+														password.
+													</p>
+													<table class="btn btn-primary" border="0" cellpadding="0" cellspacing="0">
+														<tbody>
+															<tr>
+																<td align="left">
+																	<table border="0" cellpadding="0" cellspacing="0">
+																		<tbody>
+																			<tr>
+																				<td>
+																					<a href="https://oluwasetemi.dev" target="_blank"
+																						>Reset Password -&gt;</a
+																					>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+													<p>
+														<a href="https://oluwasetemi.dev" target="_blank"
+															>https://oluwasetemi.dev</a
+														>
+													</p>
+													<p>Don't forget to store your password safely.</p>
+													<p>If you didn't request this email, please ignore it.</p>
+													<p>Regards.</p>
+													<p>Choose Life Team.</p>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<table class="main footer" border="0" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td align="center">
+										<table border="0" cellpadding="0" cellspacing="0">
+											<tr>
+												<td class="footer-content">
+													<p class="footer-content-header">
+														&copy; 2020.Fitness Fair. All Rights Reserved.
+													</p>
+													<div class="social-media-icons">
+														<a href="https://web.facebook.com/FitnessFairNG/?_rdc=1&amp;_rdr"
+															><img
+																src="https://res.cloudinary.com/drnqdd87d/image/upload/v1604451662/chooselife/Facebookchooselife.png"
+																alt="facebook icon" /></a
+														><a href="https://twitter.com/fitnessfairng"
+															><img
+																src="https://res.cloudinary.com/drnqdd87d/image/upload/v1604451722/chooselife/Twitter_Icon_Copychooselife.png"
+																alt="twitter icon" /></a
+														><a href="https://chooselife-staging.netlify.app/"
+															><img
+																src="https://res.cloudinary.com/drnqdd87d/image/upload/v1604451691/chooselife/Instagramchooselife.png"
+																alt="instagram icon"
+														/></a>
+													</div>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

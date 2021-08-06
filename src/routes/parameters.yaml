@@ -1,0 +1,7 @@
+parameters:
+  username:
+    name: name
+    description: name of the stranger testing the api.
+    in: formData
+    required: true
+    type: string

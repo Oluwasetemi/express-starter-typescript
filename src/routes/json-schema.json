@@ -1,0 +1,868 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lastName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "image": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "CUSTOMER",
+            "BUSINESSOWNER",
+            "BUSINESSMANAGER",
+            "FLOORMANAGER",
+            "SALESSTAFF",
+            "SUPERADMIN"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "EMAIL",
+            "FACEBOOK",
+            "GOOGLE",
+            "APPLE"
+          ]
+        },
+        "Address": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Address"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "addressId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Company": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Company"
+          }
+        },
+        "companyIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "verifiedToken": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verifiedTokenExpires": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verifiedTokenAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "resetToken": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resetTokenExpires": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resetTokenAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "suspended": {
+          "type": "boolean"
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "Wallet": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Wallet"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Expenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Expenses"
+          }
+        },
+        "Token": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Token"
+          }
+        },
+        "Transaction": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Transaction"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "addressLine": {
+          "type": "string"
+        },
+        "city": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "User": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/User"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Company": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Company"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "company": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Company"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "companyId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "viewCount": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "Price": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Price"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Inventory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "FOOD",
+            "DRINK"
+          ]
+        },
+        "measurement": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "BOTTLE",
+            "CARTON6",
+            "CARTON8",
+            "CARTON12",
+            "CARTON24",
+            "PLATE"
+          ]
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "unitPrice": {
+          "type": "number"
+        },
+        "price": {
+          "$ref": "#/definitions/Price"
+        },
+        "priceId": {
+          "type": "string"
+        },
+        "published": {
+          "type": "boolean"
+        },
+        "company": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Company"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "ExpenseItem": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ExpenseItem"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Price": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sellingPrice": {
+          "type": "number"
+        },
+        "Inventory": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Inventory"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "location": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Location"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "locationId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Wallet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "number"
+        },
+        "user": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/User"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "userId": {
+          "type": "string"
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Expenses": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "totalAmount": {
+          "type": "number"
+        },
+        "user": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/User"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "userId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "item": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExpenseItem"
+          }
+        },
+        "transaction": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Transaction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transactionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ExpenseItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rate": {
+          "type": "integer"
+        },
+        "inventory": {
+          "$ref": "#/definitions/Inventory"
+        },
+        "inventoryId": {
+          "type": "string"
+        },
+        "Expenses": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Expenses"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expensesId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Token": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "company": {
+          "$ref": "#/definitions/Company"
+        },
+        "companyId": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "USED",
+            "PENDING"
+          ]
+        },
+        "for": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Transaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "CR",
+            "DB"
+          ]
+        },
+        "amount": {
+          "type": "number"
+        },
+        "transactionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "from": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "Expenses": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Expenses"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "company": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Company"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "companyId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Company": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "CLUB",
+            "LOUNGE",
+            "BAR",
+            "CLUBLOUNGE",
+            "CLUBBAR",
+            "LOUNGEBAR",
+            "CLUBLOUNGEBAR"
+          ]
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "Address": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Address"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "addressId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Location"
+          }
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "userIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        },
+        "Token": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Token"
+          }
+        },
+        "Inventory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Inventory"
+          }
+        },
+        "Transaction": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Transaction"
+          }
+        },
+        "Expenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Expenses"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Subscription": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "plan": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "user": {
+      "$ref": "#/definitions/User"
+    },
+    "address": {
+      "$ref": "#/definitions/Address"
+    },
+    "location": {
+      "$ref": "#/definitions/Location"
+    },
+    "inventory": {
+      "$ref": "#/definitions/Inventory"
+    },
+    "price": {
+      "$ref": "#/definitions/Price"
+    },
+    "wallet": {
+      "$ref": "#/definitions/Wallet"
+    },
+    "expenses": {
+      "$ref": "#/definitions/Expenses"
+    },
+    "expenseItem": {
+      "$ref": "#/definitions/ExpenseItem"
+    },
+    "token": {
+      "$ref": "#/definitions/Token"
+    },
+    "transaction": {
+      "$ref": "#/definitions/Transaction"
+    },
+    "company": {
+      "$ref": "#/definitions/Company"
+    },
+    "subscription": {
+      "$ref": "#/definitions/Subscription"
+    }
+  }
+}

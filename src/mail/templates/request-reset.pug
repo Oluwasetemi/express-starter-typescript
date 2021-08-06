@@ -1,0 +1,23 @@
+extends email-layout
+
+block content
+  .subject
+    h2 You Requested A Password Reset
+
+  .body
+    //- img(src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png", alt="welcome to chooselife")
+
+    p Hello #{name.split(' ')[0]}!,
+
+    p We heard you need your password reset. Click the link below and you'll be redirected to a secure location from where you can set a new password.
+
+    +button(resetLink, 'Reset Password ->')
+
+    p
+      a(href=`${resetLink}`, target='_blank')= resetLink
+
+    p Don't forget to store your password safely.
+
+    p If you didn't request this email, please ignore it.
+    p Regards.
+    p Groovy Team.

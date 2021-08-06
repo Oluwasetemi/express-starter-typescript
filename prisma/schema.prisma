@@ -1,0 +1,283 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+generator jsonSchema {
+  provider                 = "prisma-json-schema-generator"
+  output                   = "../src/routes"
+  keepRelationScalarFields = "true"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Source {
+  EMAIL
+  FACEBOOK
+  GOOGLE
+  APPLE
+}
+
+enum Role {
+  CUSTOMER
+  BUSINESSOWNER
+  BUSINESSMANAGER
+  FLOORMANAGER
+  SALESSTAFF
+  SUPERADMIN
+}
+
+model User {
+  id                   String        @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  email                String        @unique
+  firstName            String?
+  lastName             String?
+  phone                String?
+  image                String        @default("https://via.placeholder.com/350.png")
+  password             String //6 character long including Uppercase and lowercase
+  role                 Role          @default(CUSTOMER)
+  source               Source        @default(EMAIL)
+  Address              Address?      @relation(references: [id], fields: [addressId])
+  addressId            String?       @db.ObjectId
+  Company              Company[]     @relation(fields: [companyIds])
+  companyIds           String[]      @db.Array(ObjectId)
+  verifiedToken        String?
+  verifiedTokenExpires String?
+  verifiedTokenAt      DateTime?
+  resetToken           String?
+  resetTokenExpires    String?
+  resetTokenAt         DateTime?
+  verified             Boolean       @default(false)
+  suspended            Boolean       @default(false)
+  deleted              Boolean       @default(false)
+  Wallet               Wallet?
+  Expenses             Expenses[]
+  Token                Token[]
+  Transaction          Transaction[]
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+}
+
+model Address {
+  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  addressLine String
+  city        String?
+  state       String?
+  country     String?  @default("nigeria")
+  User        User?
+  Company     Company?
+  deleted     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Location {
+  id          String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  company     Company? @relation(fields: [companyId], references: [id])
+  companyId   String?  @db.ObjectId
+  viewCount   Int?     @default(0)
+  Price       Price?
+  // ExpenseItem ExpenseItem[]
+  deleted     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// table
+// orders
+// orders_item
+// cart
+// cart_item
+// attendance_log
+
+enum Type {
+  FOOD
+  DRINK
+}
+
+enum Measurement {
+  BOTTLE
+  CARTON6
+  CARTON8
+  CARTON12
+  CARTON24
+  PLATE
+}
+
+model Inventory {
+  id          String       @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name        String
+  type        Type         @default(DRINK)
+  measurement Measurement?
+  quantity    Int
+  unitPrice   Float
+  price       Price        @relation(fields: [priceId], references: [id])
+  priceId     String       @db.ObjectId
+  published   Boolean      @default(false)
+  company     Company?     @relation(fields: [companyId], references: [id])
+  companyId   String       @db.ObjectId
+  ExpenseItem ExpenseItem?
+  deleted     Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Price {
+  id           String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  sellingPrice Float
+  Inventory    Inventory?
+  location     Location?  @relation(fields: [locationId], references: [id])
+  locationId   String?    @db.ObjectId
+  deleted      Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+// wallet
+model Wallet {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  balance   Float    @default(0)
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  deleted   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// expenses
+model Expenses {
+  id            String        @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name          String?
+  description   String?
+  totalAmount   Float         @default(0)
+  user          User?         @relation(fields: [userId], references: [id])
+  userId        String?       @db.ObjectId
+  item          ExpenseItem[]
+  transaction   Transaction?  @relation(fields: [transactionId], references: [id])
+  transactionId String?       @db.ObjectId
+  company       Company       @relation(fields: [companyId], references: [id])
+  companyId     String        @db.ObjectId
+  deleted       Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model ExpenseItem {
+  id          String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name        String?
+  rate        Int       @default(0)
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  inventoryId String    @db.ObjectId
+  Expenses    Expenses? @relation(fields: [expensesId], references: [id])
+  expensesId  String?   @db.ObjectId
+  deleted     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum Status {
+  USED
+  PENDING
+}
+
+// token
+model Token {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  token     String   @unique
+  value     Float    @default(0)
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  status    Status   @default(PENDING)
+  // if the token was generated for someone else
+  for       String?  @db.String
+  deleted   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TransactionType {
+  CR
+  DB
+}
+
+enum PaymentMethod {
+  POS
+  WALLET
+  TOKEN
+  PAYSTACK
+}
+
+// transactions
+model Transaction {
+  id            String          @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  type          TransactionType
+  amount        Float
+  transactionId String?
+  // from - maybe card, bank or something
+  from          String?
+  user          User            @relation(fields: [userId], references: [id])
+  userId        String          @db.ObjectId
+  Expenses      Expenses?
+  company       Company?        @relation(fields: [companyId], references: [id])
+  companyId     String?         @db.ObjectId
+  deleted       Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+enum CategoryEnum {
+  CLUB
+  LOUNGE
+  BAR
+  CLUBLOUNGE
+  CLUBBAR
+  LOUNGEBAR
+  CLUBLOUNGEBAR
+}
+
+model Company {
+  id          String        @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name        String
+  category    CategoryEnum
+  phone       String
+  email       String
+  Address     Address?      @relation(references: [id], fields: [addressId])
+  addressId   String?       @db.ObjectId
+  location    Location[]
+  deleted     Boolean       @default(false)
+  userIds     String[]      @db.Array(ObjectId)
+  Users       User[]        @relation(fields: [userIds])
+  Token       Token[]
+  Inventory   Inventory[]
+  Transaction Transaction[]
+  Expenses    Expenses[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+// activities
+
+// notifications
+
+// permission priviledge
+
+// logs
+
+// messages
+
+// subscription
+model Subscription {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  plan      String
+  value     Float
+  deleted   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

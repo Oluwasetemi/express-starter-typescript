@@ -1,0 +1,30 @@
+# name: Update Production Server
+
+# on:
+#   push:
+#     branches: [staging, main]
+
+# jobs:
+#   update-server:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Pull Latest Code
+#         uses: appleboy/ssh-action@v0.1.2
+#         with:
+#           host: ${{secrets.SSH_HOST}}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           key: ${{ secrets.SSH_KEY }}
+#           script: |
+#             cd ~/groovy_backend/ # navigate into the folder
+#             sudo git reset --hard origin/main
+#             sudo git pull origin main # clone the repo into the 'app' folder
+#             if git diff-tree --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet 'package.json'; then
+#               echo "$(date): Running npm install because package.json changed"
+#               sudo yarn > /dev/null
+#             else
+#               echo "$(date): No changes in the package.json found"
+#             fi
+#             # npm install # install dependencies
+#             pm2 restart 1 # start as a background service.
+#             pm2 status
+#             # curl -X POST https://api.netlify.com/build_hooks/608c2f14d46c3f009cadb20d # rebuild the frontend

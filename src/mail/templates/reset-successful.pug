@@ -1,0 +1,18 @@
+extends email-layout
+
+block content
+    .subject
+        h2 Password Reset Successful
+
+    .body
+        //- img(src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png", alt="welcome to chooselife")
+
+        p Hello #{name}!,
+
+        p Your password has been changed successfully.
+
+        p Don't forget to store your password safely.
+
+        p If you didn't request this email, please ignore it.
+        p Groovy Team
+        a(href=`${hostname}`) #{hostname}

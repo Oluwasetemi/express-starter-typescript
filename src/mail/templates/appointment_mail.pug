@@ -1,0 +1,32 @@
+extends email-layout
+
+block content
+    .subject
+        h2 Title of appointment: #{title}
+
+    .body
+        img(src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png", alt="welcome to chooselife")
+
+        p Hello Admin!,
+
+        p A new appointment was created by
+            b  #{name}
+            |  on the platform.
+
+        p Here is the details of the appointment:
+        | Description:
+        b
+            em  #{description},
+        |  Time:
+        b  #{datetime},
+        |  Professional Name:
+        b  #{professional},
+        |  the Professional type will like to see:
+        b  #{type},
+        |  and the Purpose of the appointment:
+        b  #{purpose}.
+
+
+        p If you didn't request this email, please ignore it.
+        p Regards.
+        p Choose Life Team
